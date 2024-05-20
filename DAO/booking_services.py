@@ -31,7 +31,7 @@ class BookingService(DBConnection, IBookingSystem):
     def calculate_booking_cost(self, event_id, num_tickets):
         total_cost_of_tickets = 0
         self.cursor.execute(
-            "SELECT AVAILABLE_SEATS FROM EVENT WHERE Event_id=?", (event_id)
+            "SELECT AVAILABLE_SEATS FROM EVENT_table WHERE Event_id=?", (event_id)
         )
         booking_data = self.cursor.fetchall()
         available_seats = booking_data[0][0]
@@ -70,13 +70,13 @@ class BookingService(DBConnection, IBookingSystem):
 
     def book_tickets(self, event_id, num_tickets):
         self.cursor.execute(
-            "SELECT available_seats from event where event_id=?", (event_id)
+            "SELECT available_seats from event_table where event_id=?", (event_id)
         )
         available_seats = self.cursor.fetchone()[0]
         try:
             if available_seats >= num_tickets:
                 self.cursor.execute(
-                    "UPDATE Event SET available_seats = available_seats - ? WHERE event_id = ?",
+                    "UPDATE Event_table SET available_seats = available_seats - ? WHERE event_id = ?",
                     (num_tickets, event_id),
                 )
                 self.conn.commit()
@@ -84,18 +84,18 @@ class BookingService(DBConnection, IBookingSystem):
             else:
                 return "Sorry, tickets are unavailable"
         except Exception as e:
-            print("OOPS Error Happened: ", e)
+            print(e)
 
     def cancel_booking(self, event_id, num_tickets):
         self.cursor.execute(
-            "select total_seats,available_seats from event where event_id=?", (event_id)
+            "select total_seats,available_seats from event_table where event_id=?", (event_id)
         )
         data = self.cursor.fetchone()
         total_seats, available_seats = data
         try:
             if (total_seats - available_seats) >= num_tickets:
                 self.cursor.execute(
-                    "update event set available_seats = available_seats +? WHERE event_id = ?",
+                    "update event_table set available_seats = available_seats +? WHERE event_id = ?",
                     (num_tickets, event_id),
                 )
                 self.conn.commit()
@@ -108,7 +108,7 @@ class BookingService(DBConnection, IBookingSystem):
     def get_available_no_of_tickets(self, event_id):
         try:
             self.cursor.execute(
-                "select available_seats FROM Event WHERE event_id = ?",
+                "select available_seats FROM Event_table WHERE event_id = ?",
                 (event_id,),
             )
             available_seats = self.cursor.fetchone()[0]
@@ -118,7 +118,7 @@ class BookingService(DBConnection, IBookingSystem):
 
     def get_event_details(self):
         try:
-            self.cursor.execute("select * from Booking")
+            self.cursor.execute("select * from Booking_table")
             booking_data = [list(row) for row in self.cursor.fetchall()]
             headers = [
                 "booking_id",

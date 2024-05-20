@@ -2,7 +2,7 @@ class PropertyUtil:
     @staticmethod
     def get_property_string():
         server_name = "DM"
-        database_name = "tbs"
+        database_name = "TktBookingSystem"
 
         conn_str = (
             f"Driver={{SQL Server}};"

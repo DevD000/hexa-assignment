@@ -1,10 +1,12 @@
 from DAO import BookingService
 from DAO.event_services import event_service
-
-
+from DAO.venue_service import VenueService
+from DAO.customer_service import CustomerService
 class MainMenu:
     event_service = event_service()
     booking_service = BookingService()
+    venue_service=VenueService()
+    customer_service=CustomerService()
 
     def booking_menu(self):
         while True:
@@ -20,13 +22,13 @@ class MainMenu:
                 choice = int(input("Please choose one from the above options:"))
                 if choice == 1:
                     event_id = input(
-                        "Enter the event id of event which you want to book your tickets:"
+                        "Enter the event id of event which you want to book your tickets : "
                     )
                     num_tickets = int(input("Enter no. of tickets you want to book :"))
                     self.booking_service.calculate_booking_cost(event_id,num_tickets)
                 elif choice == 2:
                     event_id = input(
-                        "Enter the event id which you want to book your tickets:"
+                        "Enter the event id which you want to book your tickets(event ID in the form of E001):"
                     )
                     num_tickets = int(input("Enter no of tickets to book :"))
                     print(self.booking_service.book_tickets(event_id, num_tickets))
@@ -90,14 +92,14 @@ def main():
             main_menu.booking_menu()
         elif choice == 2:
              main_menu.event_menu()
-        # elif choice == 3:
-        #     self.venue_service.display_venue_details()
-        # elif choice == 4:
-        #     self.customer_service.display_customer_details()
-        # elif choice == 5:
-        #     main_menu.booking_service.close()
-        #     main_menu.event_service.close()
-        #     break
+        elif choice == 3:
+            main_menu.venue_service.display_venue_details()
+        elif choice == 4:
+            main_menu.customer_service.display_customer_details()
+        elif choice == 5:
+             main_menu.booking_service.close()
+             main_menu.event_service.close()
+             break
 
 
 if __name__ == "__main__":
