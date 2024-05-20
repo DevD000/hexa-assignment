@@ -22,25 +22,25 @@ class MainMenu:
                 choice = int(input("Please choose one from the above options:"))
                 if choice == 1:
                     event_id = input(
-                        "Enter the event id of event which you want to book your tickets : "
+                        "Enter the event id of event which you want to book your tickets (event id in form of E001,E002) : "
                     )
                     num_tickets = int(input("Enter no. of tickets you want to book :"))
                     self.booking_service.calculate_booking_cost(event_id,num_tickets)
                 elif choice == 2:
                     event_id = input(
-                        "Enter the event id which you want to book your tickets(event ID in the form of E001):"
+                        "Enter the event id which you want to book your tickets(event ID in the form of E001) : "
                     )
                     num_tickets = int(input("Enter no of tickets to book :"))
                     print(self.booking_service.book_tickets(event_id, num_tickets))
                 elif choice == 3:
                     event_id = input(
-                        "Enter the event id which you want to book your tickets:"
+                        "Enter the event id which you want to book your tickets (event id in form of E001,E002) : "
                     )
-                    num_tickets = int(input("Enter no of tickets to book :"))
+                    num_tickets = int(input("Enter no of tickets to book : "))
                     print(self.booking_service.cancel_booking(event_id, num_tickets))
                 elif choice == 4:
                     event_id = input(
-                        "Enter the event id which you want to book your tickets:"
+                        "Enter the event id which you want to book your tickets(event id in form of E001,E002):"
                     )
                     print(self.booking_service.get_available_no_of_tickets(event_id))
                 elif choice == 5:
@@ -61,7 +61,7 @@ class MainMenu:
                 
             """
             )
-            choice = int(input("Please choose from above options:"))
+            choice = int(input("Please choose from above options :"))
             if choice == 1:
                 self.event_service.calculate_total_revenue()
             elif choice == 2:
@@ -71,7 +71,7 @@ class MainMenu:
             elif choice == 4:
                 break
             else:
-                print("Sorry Please Enter a valid option")
+                print(" Please Enter a valid option")
               
 
 
