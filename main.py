@@ -1,8 +1,9 @@
 from DAO import BookingService
+from DAO.event_services import event_service
 
 
 class MainMenu:
-    # event_service = EventService()
+    event_service = event_service()
     booking_service = BookingService()
 
     def booking_menu(self):
@@ -47,8 +48,29 @@ class MainMenu:
                 else:
                     print("Sorry Please Enter a valid option ❌")
 
-
+    def event_menu(self):
+        while True:
+            print(
+                """
+                  1] Calculate total revenue
+                  2] Get Booked Tickets
+                  3] Display event Details
+                  4] Exit
                 
+            """
+            )
+            choice = int(input("Please choose from above options:"))
+            if choice == 1:
+                self.event_service.calculate_total_revenue()
+            elif choice == 2:
+                self.event_service.get_booked_no_of_tickets()
+            elif choice == 3:
+                self.event_service.get_event_details()
+            elif choice == 4:
+                break
+            else:
+                print("Sorry Please Enter a valid option")
+              
 
 
 def main():
@@ -66,8 +88,8 @@ def main():
         choice = int(input("Please choose from on of options:"))
         if choice == 1:
             main_menu.booking_menu()
-        # elif choice == 2:
-        #     main_menu.event_menu()
+        elif choice == 2:
+             main_menu.event_menu()
         # elif choice == 3:
         #     self.venue_service.display_venue_details()
         # elif choice == 4:

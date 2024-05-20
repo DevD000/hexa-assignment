@@ -62,11 +62,7 @@ class Movie(Event):
             event_type,
         )
 
-    # def display_movie_details(self):
-    #     print(f"genre of the movie : {self.genre}")
-    #     print(f"Movie actor: {self.actor_name}")
-    #     print(f"Movie actress : {self.actress_name}")
-    #     return super().display_event_details()
+   
 
 
 class Concert(Event):
@@ -98,10 +94,7 @@ class Concert(Event):
             event_type,
         )
 
-    # def display_concert_details(self):
-    #     print(f"Name of the artist: {self.artist}")
-    #     print(f"Concert type: {self.type}")
-    #     return super().display_event_details()
+
 
 
 class Sports(Event):
@@ -133,7 +126,3 @@ class Sports(Event):
             event_type,
         )
 
-    # def display_sport_details(self):
-    #     print(f"Name of the sport: {self.sport_name}")
-    #     print(f"Name of the team : {self.teams_name}")
-    #     return super().display_event_details()

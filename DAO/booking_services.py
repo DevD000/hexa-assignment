@@ -39,10 +39,10 @@ class BookingService(DBConnection, IBookingSystem):
             ticket = int(
                 input(
                     """Tickets are available , please Select The required ticket from the following
-                        1.Silver
-                        2.Gold
-                        3.Diamond
-                        4.EXIT
+                        1]Silver
+                        2] Gold
+                        3] Diamond
+                        4] Exit
                         """
                 )
             )
@@ -79,7 +79,7 @@ class BookingService(DBConnection, IBookingSystem):
                     "UPDATE Event SET available_seats = available_seats - ? WHERE event_id = ?",
                     (num_tickets, event_id),
                 )
-                # self.conn.commit()
+                self.conn.commit()
                 return f"{num_tickets} tickets booked successfully"
             else:
                 return "Sorry, tickets are unavailable"
@@ -88,14 +88,14 @@ class BookingService(DBConnection, IBookingSystem):
 
     def cancel_booking(self, event_id, num_tickets):
         self.cursor.execute(
-            "SELECT total_seats,available_seats from event where event_id=?", (event_id)
+            "select total_seats,available_seats from event where event_id=?", (event_id)
         )
         data = self.cursor.fetchone()
         total_seats, available_seats = data
         try:
             if (total_seats - available_seats) >= num_tickets:
                 self.cursor.execute(
-                    "UPDATE Event SET available_seats = available_seats +? WHERE event_id = ?",
+                    "update event set available_seats = available_seats +? WHERE event_id = ?",
                     (num_tickets, event_id),
                 )
                 self.conn.commit()
@@ -103,22 +103,22 @@ class BookingService(DBConnection, IBookingSystem):
             else:
                 return "Sorry, Invalid number of tickets"
         except Exception as e:
-            print("OOPS Error Happened: ", e)
+            print(e)
 
     def get_available_no_of_tickets(self, event_id):
         try:
             self.cursor.execute(
-                "SELECT available_seats FROM Event WHERE event_id = ?",
+                "select available_seats FROM Event WHERE event_id = ?",
                 (event_id,),
             )
             available_seats = self.cursor.fetchone()[0]
-            return f"The tickets available are {available_seats}"
+            return f"The available tickets are {available_seats}"
         except Exception as e:
-            print("OOPS Error Happened: ", e)
+            print(e)
 
     def get_event_details(self):
         try:
-            self.cursor.execute("SELECT * FROM Booking")
+            self.cursor.execute("select * from Booking")
             booking_data = [list(row) for row in self.cursor.fetchall()]
             headers = [
                 "booking_id",
@@ -133,4 +133,4 @@ class BookingService(DBConnection, IBookingSystem):
             else:
                 raise EventNotFoundException
         except Exception as e:
-            print("OOPS Error Happened: ", e)
+            print(e)
